@@ -1,3 +1,4 @@
+use actix_cors::Cors;
 use actix_web::{get, web, App, HttpResponse, HttpServer, Responder};
 use serde::{Serialize, Deserialize};
 
@@ -34,10 +35,8 @@ async fn get_tasks() -> impl Responder {
 
 // POST /tasks → Receives the address of a new task and returns it as a data-complete task
 async fn create_task(task: web::Json<NewTask>) -> impl Responder {
-// At this point, we are not saving to a database
-//just return a new task with a temporarily fixed id
     let created_task = Task {
-        id: 1, //Later we will make it dynamic
+        id: 1,
         title: task.title.clone(),
         completed: false,
     };
@@ -52,25 +51,18 @@ async fn main() -> std::io::Result<()> {
 
     HttpServer::new(|| {
         App::new()
+        // Allow frontend to access backend (CORS)
+            .wrap(
+                Cors::default()
+                    .allow_any_origin()
+                    .allow_any_method()
+                    .allow_any_header()
+            )
             .service(health_check)                         // GET /
             .route("/tasks", web::get().to(get_tasks))     // GET /tasks
             .route("/tasks", web::post().to(create_task))  // POST /tasks
     })
-    .bind(("127.0.0.1", 8080))?
+    .bind(("127.0.0.1", 8080))?//if you use 8081, modify here and in React
     .run()
     .await
 }
-
-
-// Try POST/tasks from Terminal (or Postman)
-//In a new terminal (and the server is working):
-
-// curl -X POST http://127.0.0.1:8080/tasks \
- // -H "Content-Type: application/json" \
-  //-d '{"title": "Study Rust with Ahmed"}'
-// You should get a response like this:
-// {
-//   "id": 1,
-//   "title": "Study Rust with Ahmed",
-//   "completed": false
-// }

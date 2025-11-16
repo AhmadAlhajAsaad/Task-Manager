@@ -1,0 +1,11 @@
+/Users/othman/Projects/Task-manager/backend/api/target/debug/deps/foldhash-563e753af7a96372.d: /Users/othman/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/foldhash-0.1.5/src/lib.rs /Users/othman/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/foldhash-0.1.5/src/fast.rs /Users/othman/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/foldhash-0.1.5/src/quality.rs /Users/othman/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/foldhash-0.1.5/src/seed.rs /Users/othman/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/foldhash-0.1.5/src/convenience.rs
+
+/Users/othman/Projects/Task-manager/backend/api/target/debug/deps/libfoldhash-563e753af7a96372.rlib: /Users/othman/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/foldhash-0.1.5/src/lib.rs /Users/othman/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/foldhash-0.1.5/src/fast.rs /Users/othman/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/foldhash-0.1.5/src/quality.rs /Users/othman/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/foldhash-0.1.5/src/seed.rs /Users/othman/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/foldhash-0.1.5/src/convenience.rs
+
+/Users/othman/Projects/Task-manager/backend/api/target/debug/deps/libfoldhash-563e753af7a96372.rmeta: /Users/othman/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/foldhash-0.1.5/src/lib.rs /Users/othman/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/foldhash-0.1.5/src/fast.rs /Users/othman/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/foldhash-0.1.5/src/quality.rs /Users/othman/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/foldhash-0.1.5/src/seed.rs /Users/othman/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/foldhash-0.1.5/src/convenience.rs
+
+/Users/othman/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/foldhash-0.1.5/src/lib.rs:
+/Users/othman/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/foldhash-0.1.5/src/fast.rs:
+/Users/othman/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/foldhash-0.1.5/src/quality.rs:
+/Users/othman/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/foldhash-0.1.5/src/seed.rs:
+/Users/othman/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/foldhash-0.1.5/src/convenience.rs:

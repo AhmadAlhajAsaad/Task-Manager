@@ -1,0 +1,11 @@
+/Users/othman/Projects/Task-manager/backend/api/target/debug/deps/socket2-87991612f4668dc9.d: /Users/othman/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/socket2-0.6.1/src/lib.rs /Users/othman/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/socket2-0.6.1/src/sockaddr.rs /Users/othman/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/socket2-0.6.1/src/socket.rs /Users/othman/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/socket2-0.6.1/src/sockref.rs /Users/othman/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/socket2-0.6.1/src/sys/unix.rs
+
+/Users/othman/Projects/Task-manager/backend/api/target/debug/deps/libsocket2-87991612f4668dc9.rlib: /Users/othman/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/socket2-0.6.1/src/lib.rs /Users/othman/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/socket2-0.6.1/src/sockaddr.rs /Users/othman/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/socket2-0.6.1/src/socket.rs /Users/othman/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/socket2-0.6.1/src/sockref.rs /Users/othman/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/socket2-0.6.1/src/sys/unix.rs
+
+/Users/othman/Projects/Task-manager/backend/api/target/debug/deps/libsocket2-87991612f4668dc9.rmeta: /Users/othman/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/socket2-0.6.1/src/lib.rs /Users/othman/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/socket2-0.6.1/src/sockaddr.rs /Users/othman/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/socket2-0.6.1/src/socket.rs /Users/othman/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/socket2-0.6.1/src/sockref.rs /Users/othman/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/socket2-0.6.1/src/sys/unix.rs
+
+/Users/othman/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/socket2-0.6.1/src/lib.rs:
+/Users/othman/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/socket2-0.6.1/src/sockaddr.rs:
+/Users/othman/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/socket2-0.6.1/src/socket.rs:
+/Users/othman/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/socket2-0.6.1/src/sockref.rs:
+/Users/othman/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/socket2-0.6.1/src/sys/unix.rs:

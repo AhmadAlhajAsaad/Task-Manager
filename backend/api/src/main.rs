@@ -1,9 +1,11 @@
 use actix_cors::Cors;
 use actix_web::{get, web, App, HttpResponse, HttpServer, Responder};
 use serde::{Serialize, Deserialize};
+use sqlx::{FromRow, PgPool};
+use sqlx::postgres::PgPoolOptions;
 
 // Model (Model) for a single task that we send/receive as JSON
-#[derive(Serialize)]
+#[derive(Serialize, FromRow)]
 struct Task {
     id: i32,
     title: String,
@@ -19,50 +21,79 @@ struct NewTask {
 // Endpoint is simple to make sure the API is working
 #[get("/")]
 async fn health_check() -> impl Responder {
-    HttpResponse::Ok().body("Rust Task Manager API is running 🚀")
+    HttpResponse::Ok().body("Rust Task Manager API is running!")
 }
 
-// GET /tasks → Returns a static task list (Dummy data)
-async fn get_tasks() -> impl Responder {
-    let tasks = vec![
-        Task { id: 1, title: "Learn Rust".to_string(), completed: false },
-        Task { id: 2, title: "Build Task Manager backend".to_string(), completed: false },
-        Task { id: 3, title: "Connect React frontend".to_string(), completed: false },
-    ];
+// GET /tasks → Fetch tasks from database
+async fn get_tasks(db_pool: web::Data<PgPool>) -> impl Responder {
+    let result = sqlx::query_as::<_, Task>(
+        "SELECT id, title, completed FROM tasks ORDER BY id"
+    )
+    .fetch_all(db_pool.get_ref())
+    .await;
 
-    HttpResponse::Ok().json(tasks)
+    match result {
+        Ok(tasks) => HttpResponse::Ok().json(tasks),
+        Err(e) => {
+            println!("DB error in get_tasks: {e}");
+            HttpResponse::InternalServerError().body("Failed to fetch tasks")
+        }
+    }
 }
 
-// POST /tasks → Receives the address of a new task and returns it as a data-complete task
-async fn create_task(task: web::Json<NewTask>) -> impl Responder {
-    let created_task = Task {
-        id: 1,
-        title: task.title.clone(),
-        completed: false,
-    };
+// POST /tasks → Creates a new task in the database and returns it
+async fn create_task(
+    db_pool: web::Data<PgPool>,
+    task: web::Json<NewTask>
+) -> impl Responder {
+    let result = sqlx::query_as::<_, Task>(
+        "INSERT INTO tasks (title, completed) VALUES ($1, false)
+         RETURNING id, title, completed"
+    )
+    .bind(&task.title)
+    .fetch_one(db_pool.get_ref())
+    .await;
 
-    HttpResponse::Created().json(created_task)
+    match result {
+        Ok(created_task) => HttpResponse::Created().json(created_task),
+        Err(e) => {
+            println!("DB error in create_task: {e}");
+            HttpResponse::InternalServerError().body("Failed to create task")
+        }
+    }
 }
 
 // Application entry point
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
+    // Read DATABASE_URL from environment variables
+    let database_url = std::env::var("DATABASE_URL")
+        .expect("DATABASE_URL must be set, e.g. postgres://user:pass@localhost:5432/task_manager");
+
+    // Create a pool to connect to the database
+    let db_pool = PgPoolOptions::new()
+        .max_connections(5)
+        .connect(&database_url)
+        .await
+        .expect("Failed to connect to database");
+
+    println!("✅ Connected to PostgreSQL");
     println!("🚀 Server running at http://127.0.0.1:8080");
 
-    HttpServer::new(|| {
+    HttpServer::new(move || {
         App::new()
-        // Allow frontend to access backend (CORS)
             .wrap(
                 Cors::default()
                     .allow_any_origin()
                     .allow_any_method()
                     .allow_any_header()
             )
+            .app_data(web::Data::new(db_pool.clone()))
             .service(health_check)                         // GET /
             .route("/tasks", web::get().to(get_tasks))     // GET /tasks
             .route("/tasks", web::post().to(create_task))  // POST /tasks
     })
-    .bind(("127.0.0.1", 8080))?//if you use 8081, modify here and in React
+    .bind(("127.0.0.1", 8080))? // Change the port if you need    
     .run()
     .await
 }

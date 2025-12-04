@@ -2,6 +2,8 @@ use actix_cors::Cors;
 use actix_web::{get, web, App, HttpResponse, HttpServer, Responder};
 use serde::{Serialize, Deserialize};
 use sqlx::{FromRow, PgPool};
+use std::time::Duration;
+use tokio::time::sleep;
 use sqlx::postgres::PgPoolOptions;
 
 // Model (Model) for a single task that we send/receive as JSON
@@ -67,15 +69,32 @@ async fn create_task(
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
     // Read DATABASE_URL from environment variables
-    let database_url = std::env::var("DATABASE_URL")
-        .expect("DATABASE_URL must be set, e.g. postgres://user:pass@localhost:5432/task_manager");
+    let database_url = match std::env::var("DATABASE_URL") {
+        Ok(url) => url,
+        Err(_) => {
+            eprintln!("ERROR: DATABASE_URL must be set. Example: postgres://user:pass@localhost:5432/task_manager");
+            std::process::exit(1);
+        }
+    };
 
     // Create a pool to connect to the database
-    let db_pool = PgPoolOptions::new()
-        .max_connections(5)
-        .connect(&database_url)
-        .await
-        .expect("Failed to connect to database");
+    // Try to connect to Postgres with a simple retry/backoff strategy.
+    let mut attempts = 0u8;
+    let db_pool = loop {
+        match PgPoolOptions::new().max_connections(5).connect(&database_url).await {
+            Ok(pool) => break pool,
+            Err(err) => {
+                attempts += 1;
+                eprintln!("ERROR: Failed to connect to database on attempt {}: {}", attempts, err);
+                if attempts >= 5 {
+                    eprintln!("ERROR: Giving up after {} attempts.", attempts);
+                    std::process::exit(1);
+                }
+                // Wait a bit before retrying
+                sleep(Duration::from_secs(2)).await;
+            }
+        }
+    };
 
     println!("✅ Connected to PostgreSQL");
     println!("🚀 Server running at http://127.0.0.1:8080");

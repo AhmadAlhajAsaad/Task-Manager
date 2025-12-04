@@ -1,32 +1,40 @@
-# Ignore Rust/Cargo build artifacts
-**/target/
-**/debug/
-**/release/
+# Rust build artifacts
+/backend/api/target/
+**/*.rs.bk
+Cargo.lock
 
-# Node modules and build output
-**/node_modules/
-**/build/
-**/dist/
+# Node.js
+/frontend/web/node_modules/
+/frontend/web/build/
+/frontend/web/dist/
+*.tsbuildinfo
 
-# IDE/editor
+# npm
+package-lock.json
+npm-debug.log
+npm-error.log
+yarn-error.log
+
+# OS
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# IDEs
 .vscode/
 .idea/
+*.sublime-project
+*.sublime-workspace
+*.code-workspace
 
-# OS files
-Thumbs.db
-.DS_Store
+# Environment
+.env
+.env.local
+.env.*.local
 
-# Logs and temporary files
-*.log
-*.tmp
-
-# Binaries and debug symbols
-*.exe
-*.pdb
-*.dll
-*.so
-*.dylib
-
-# Lock files (keep if you intentionally commit them)
-# package-lock.json
-# yarn.lock
+# Misc
+.cache
+.parcel-cache
+dist

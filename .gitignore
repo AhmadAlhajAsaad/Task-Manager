@@ -1,0 +1,32 @@
+# Ignore Rust/Cargo build artifacts
+**/target/
+**/debug/
+**/release/
+
+# Node modules and build output
+**/node_modules/
+**/build/
+**/dist/
+
+# IDE/editor
+.vscode/
+.idea/
+
+# OS files
+Thumbs.db
+.DS_Store
+
+# Logs and temporary files
+*.log
+*.tmp
+
+# Binaries and debug symbols
+*.exe
+*.pdb
+*.dll
+*.so
+*.dylib
+
+# Lock files (keep if you intentionally commit them)
+# package-lock.json
+# yarn.lock
